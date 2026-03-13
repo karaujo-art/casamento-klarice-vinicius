@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klarice & Vinicius 💍</title>
+<style>
+  :root {
+    --rose: #c9748a;
+    --rose-light: #f5e6ea;
+    --rose-dark: #a05570;
+    --gold: #c9a96e;
+    --gold-light: #f7f0e6;
+    --cream: #fdf8f5;
+    --text: #3a2e35;
+    --text-soft: #7a6470;
+    --white: #ffffff;
+    --green: #6aaa8e;
+    --green-light: #e8f5ef;
+    --red: #d9736a;
+    --red-light: #fdecea;
+    --purple: #9b7ec8;
+    --purple-light: #f0ebf9;
+    --shadow: 0 2px 12px rgba(60,30,40,0.10);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 60%, var(--gold) 100%);
+    color: white;
+    padding: 28px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M20 3C20 3 12 10 12 17a8 8 0 0016 0C28 10 20 3 20 3z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+    opacity: 0.6;
+  }
+  .header-content { position: relative; z-index: 1; }
+  .header-title { font-size: 28px; font-weight: 700; letter-spacing: 1px; }
+  .header-subtitle { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+  .header-date { font-size: 13px; opacity: 0.85; margin-top: 8px; background: rgba(255,255,255,0.2); display: inline-block; padding: 4px 14px; border-radius: 20px; }
+
+  /* COUNTDOWN */
+  .countdown {
+    background: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    box-shadow: var(--shadow);
+  }
+  .countdown-item { text-align: center; }
+  .countdown-num {
+    font-size: 32px; font-weight: 800;
+    color: var(--rose-dark);
+    line-height: 1;
+    display: block;
+  }
+  .countdown-label { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+  .countdown-sep { color: var(--rose); font-size: 28px; font-weight: 300; align-self: center; margin-top: -8px; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid #f0e8ec;
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 -2px 16px rgba(60,30,40,0.08);
+  }
+  .nav-item {
+    flex: 1; padding: 10px 4px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    cursor: pointer; border: none; background: none;
+    color: var(--text-soft); font-size: 10px; font-family: inherit;
+    transition: color 0.15s;
+  }
+  .nav-item.active { color: var(--rose-dark); }
+  .nav-icon { font-size: 22px; }
+
+  /* PAGES */
+  .page { display: none; padding: 16px; }
+  .page.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-size: 16px; font-weight: 700;
+    color: var(--rose-dark);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin-bottom: 6px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); margin-bottom: 5px; }
+  .progress-bar { background: var(--rose-light); border-radius: 20px; height: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--rose), var(--gold)); border-radius: 20px; transition: width 0.5s ease; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f7f0f3;
+    cursor: pointer;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 22px; height: 22px; min-width: 22px;
+    border-radius: 6px; border: 2px solid var(--rose);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; transition: all 0.15s;
+    background: white;
+  }
+  .check-box.done { background: var(--rose); border-color: var(--rose); color: white; }
+  .check-text { flex: 1; font-size: 14px; line-height: 1.4; }
+  .check-text.done { text-decoration: line-through; color: var(--text-soft); }
+  .check-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-urgent { background: var(--red-light); color: var(--red); }
+
+  /* FINANCEIRO */
+  .finance-summary {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .finance-box {
+    border-radius: var(--radius-sm);
+    padding: 14px; text-align: center;
+  }
+  .finance-box.total { background: var(--rose-light); }
+  .finance-box.pago { background: var(--green-light); }
+  .finance-box.pendente { background: var(--gold-light); }
+  .finance-box.restante { background: var(--purple-light); }
+  .finance-num { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
+  .finance-num.rose { color: var(--rose-dark); }
+  .finance-num.green { color: var(--green); }
+  .finance-num.gold { color: #a07840; }
+  .finance-num.purple { color: var(--purple); }
+  .finance-label { font-size: 11px; color: var(--text-soft); }
+
+  .payment-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid #f7f0f3; font-size: 13px;
+  }
+  .payment-item:last-child { border-bottom: none; }
+  .payment-name { font-weight: 500; }
+  .payment-amount { font-weight: 700; }
+  .payment-amount.pago { color: var(--green); }
+  .payment-amount.pendente { color: var(--gold); }
+  .payment-status { font-size: 11px; color: var(--text-soft); }
+
+  /* FORNECEDORES */
+  .fornecedor-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f7f0f3;
+  }
+  .fornecedor-item:last-child { border-bottom: none; }
+  .fornecedor-row { display: flex; justify-content: space-between; align-items: flex-start; }
+  .fornecedor-name { font-weight: 600; font-size: 14px; }
+  .fornecedor-cat { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .fornecedor-info { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+  .status-chip {
+    font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .chip-contratado { background: var(--green-light); color: var(--green); }
+  .chip-buscando { background: var(--gold-light); color: #a07840; }
+  .chip-cotando { background: var(--purple-light); color: var(--purple); }
+  .chip-incluido { background: var(--rose-light); color: var(--rose-dark); }
+
+  /* ADD BUTTON */
+  .btn-add {
+    width: 100%; padding: 12px;
+    border: 2px dashed var(--rose);
+    border-radius: var(--radius-sm);
+    background: none; color: var(--rose);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 8px; margin-top: 8px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-add:active { background: var(--rose-light); }
+
+  /* CONVIDADOS */
+  .guest-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px;
+  }
+  .guest-stat {
+    border-radius: var(--radius-sm); padding: 12px; text-align: center;
+  }
+  .guest-num { font-size: 24px; font-weight: 800; }
+  .guest-lbl { font-size: 11px; color: var(--text-soft); }
+
+  .search-input {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid #f0e8ec; border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit;
+    outline: none; margin-bottom: 12px;
+  }
+  .search-input:focus { border-color: var(--rose); }
+
+  .guest-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid #f7f0f3; font-size: 13px;
+  }
+  .guest-item:last-child { border-bottom: none; }
+  .guest-side { font-size: 11px; color: var(--text-soft); }
+  .confirm-btn {
+    padding: 4px 12px; border-radius: 20px; border: none;
+    font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  .confirm-btn.sim { background: var(--green-light); color: var(--green); }
+  .confirm-btn.nao { background: var(--red-light); color: var(--red); }
+  .confirm-btn.aguardando { background: var(--gold-light); color: #a07840; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(60,20,35,0.45); z-index: 200;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 20px 20px 0 0;
+    padding: 24px 20px; width: 100%; max-height: 80vh; overflow-y: auto;
+  }
+  .modal-title { font-size: 18px; font-weight: 700; color: var(--rose-dark); margin-bottom: 16px; }
+  .modal-field { margin-bottom: 14px; }
+  .modal-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-soft); margin-bottom: 6px; }
+  .modal-field input, .modal-field select {
+    width: 100%; padding: 10px 14px; border: 1.5px solid #f0e8ec;
+    border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+    outline: none;
+  }
+  .modal-field input:focus, .modal-field select:focus { border-color: var(--rose); }
+  .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+  .btn-primary {
+    flex: 1; padding: 14px; border: none; border-radius: var(--radius-sm);
+    background: var(--rose); color: white; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-secondary {
+    flex: 1; padding: 14px; border: 1.5px solid var(--rose); border-radius: var(--radius-sm);
+    background: none; color: var(--rose); font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-soft); margin: 16px 0 8px;
+  }
+
+  /* ESPAÇO INCLUSO */
+  .space-included {
+    background: var(--rose-light);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .space-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 5px 0; font-size: 13px;
+  }
+  .space-icon { font-size: 15px; min-width: 20px; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-title">💍 Klarice & Vinicius</div>
+    <div class="header-subtitle">Espaço Recanto Miami · Água Azul</div>
+    <div class="header-date">📅 07 de Março de 2027 · 11h às 17h · 100 convidados</div>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+  <div class="countdown-item"><span class="countdown-num" id="cd-dias">--</span><span class="countdown-label">dias</span></div>
+  <div class="countdown-sep">:</div>
+  <div class="countdown-item"><span class="countdown-num" id="cd-horas">--</span><span class="countdown-label">horas</span></div>
+  <div class="countdown-sep">:</div>
+  <div class="countdown-item"><span class="countdown-num" id="cd-min">--</span><span class="countdown-label">min</span></div>
+  <div class="countdown-sep">:</div>
+  <div class="countdown-item"><span class="countdown-num" id="cd-seg">--</span><span class="countdown-label">seg</span></div>
+</div>
+
+<!-- ===== PAGES ===== -->
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+
+  <div class="card">
+    <div class="card-title">📊 Progresso Geral</div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Preparativos concluídos</span><span id="prog-label">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-bar" style="width:0%"></div></div>
+    </div>
+    <div style="font-size:12px;color:var(--text-soft);margin-top:6px;" id="prog-sub"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏛️ Já fechado com o Espaço</div>
+    <div class="space-included">
+      <div class="space-row"><span class="space-icon">✅</span><span>Espaço Miami + Buffet Cristal</span></div>
+      <div class="space-row"><span class="space-icon">✅</span><span>DJ · som · iluminação (festa, balada e cerimônia)</span></div>
+      <div class="space-row"><span class="space-icon">✅</span><span>Assessoria no dia + equipe completa</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Suíte da noiva 4h (+2 acompanhantes)</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Gerador de energia</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Berçário & Área Kids</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Passarela espelhada</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>5 Staffs</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Cascata de Chocolate 2h</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Proteína Polpette de Frango</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Cabine de Fotos 2h</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>Festival de Drinks 3h (alcoólicos e não alcoólicos)</span></div>
+      <div class="space-row"><span class="space-icon">💖</span><span>+1h de evento (total 6h)</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Tarefas urgentes pendentes</div>
+    <ul class="checklist" id="urgent-list"></ul>
+  </div>
+
+</div>
+
+<!-- CHECKLIST -->
+<div class="page" id="page-check">
+
+  <div class="card"><div class="card-title">📄 Documentação & Legal</div><ul class="checklist" id="list-documentos"></ul></div>
+  <div class="card"><div class="card-title">💄 Visual da Noiva</div><ul class="checklist" id="list-visual"></ul></div>
+  <div class="card"><div class="card-title">📸 Foto & Vídeo</div><ul class="checklist" id="list-fotos"></ul></div>
+  <div class="card"><div class="card-title">👗 Trajes</div><ul class="checklist" id="list-trajes"></ul></div>
+  <div class="card"><div class="card-title">🌸 Cerimônia</div><ul class="checklist" id="list-cerimonia"></ul></div>
+  <div class="card"><div class="card-title">🌺 Decoração</div><ul class="checklist" id="list-decoracao"></ul></div>
+  <div class="card"><div class="card-title">🎂 Bolo & Doces Finos</div><ul class="checklist" id="list-doces"></ul></div>
+  <div class="card"><div class="card-title">🎁 Lembrancinhas</div><ul class="checklist" id="list-lembrancinhas"></ul></div>
+  <div class="card"><div class="card-title">💌 Convites & Convidados</div><ul class="checklist" id="list-convidados"></ul></div>
+  <div class="card"><div class="card-title">✈️ Lua de Mel</div><ul class="checklist" id="list-lua"></ul></div>
+
+</div>
+
+<!-- FINANCEIRO -->
+<div class="page" id="page-finance">
+
+  <div class="card">
+    <div class="card-title">💰 Resumo</div>
+    <div class="finance-summary">
+      <div class="finance-box total"><div class="finance-num rose">R$ 31.000</div><div class="finance-label">Total contrato</div></div>
+      <div class="finance-box pago"><div class="finance-num green">R$ 3.100</div><div class="finance-label">Entrada paga ✅</div></div>
+      <div class="finance-box pendente"><div class="finance-num gold">R$ 27.900</div><div class="finance-label">Restante espaço</div></div>
+      <div class="finance-box restante"><div class="finance-num purple" id="f-extras-total">R$ 0</div><div class="finance-label">Extras registrados</div></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Espaço pago</span><span>10%</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Parcelas do Espaço</div>
+    <div class="payment-item">
+      <div><div class="payment-name">Entrada</div><div class="payment-status">✅ Pago — março/2026</div></div>
+      <div class="payment-amount pago">R$ 3.100</div>
+    </div>
+    <div class="payment-item">
+      <div><div class="payment-name">Parcelas contratuais</div><div class="payment-status">⏳ Conforme contrato</div></div>
+      <div class="payment-amount pendente">R$ 27.900</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎯 Gastos extras</div>
+    <div id="extras-list">
+      <div style="text-align:center;padding:16px;color:var(--text-soft);font-size:13px;">Nenhum gasto registrado ainda.</div>
+    </div>
+    <button class="btn-add" onclick="openModal('modal-gasto')">+ Registrar gasto / orçamento</button>
+  </div>
+
+</div>
+
+<!-- FORNECEDORES -->
+<div class="page" id="page-forn">
+  <div class="card">
+    <div class="card-title">🤝 Fornecedores</div>
+
+    <div class="section-title">Inclusos no pacote</div>
+    <div class="fornecedor-item">
+      <div class="fornecedor-row"><div><div class="fornecedor-name">Espaço Recanto Miami</div><div class="fornecedor-cat">Local · Buffet Cristal · Equipe completa</div></div><span class="status-chip chip-contratado">Contratado</span></div>
+      <div class="fornecedor-info">📍 Av. Acapulco, 186 · Água Azul</div>
+    </div>
+    <div class="fornecedor-item">
+      <div class="fornecedor-row"><div><div class="fornecedor-name">DJ + Som + Iluminação</div><div class="fornecedor-cat">Música</div></div><span class="status-chip chip-incluido">Incluso</span></div>
+    </div>
+    <div class="fornecedor-item">
+      <div class="fornecedor-row"><div><div class="fornecedor-name">Cabine de Fotos</div><div class="fornecedor-cat">Entretenimento · 2 horas</div></div><span class="status-chip chip-incluido">Incluso</span></div>
+    </div>
+
+    <div class="section-title">A contratar</div>
+    <div id="forn-list">
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Fotógrafo</div><div class="fornecedor-cat">Foto & Vídeo</div></div><span class="status-chip chip-buscando">Buscando</span></div><div class="fornecedor-info">💡 Peça portfólio e compare pacotes com e sem álbum</div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Cinegrafista</div><div class="fornecedor-cat">Foto & Vídeo</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Cabeleireiro da noiva</div><div class="fornecedor-cat">Beleza</div></div><span class="status-chip chip-buscando">Buscando</span></div><div class="fornecedor-info">💡 Agendar teste com 3–4 meses de antecedência</div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Maquiadora da noiva</div><div class="fornecedor-cat">Beleza</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Ateliê — Vestido de Noiva</div><div class="fornecedor-cat">Trajes</div></div><span class="status-chip chip-buscando">Buscando</span></div><div class="fornecedor-info">💡 Buscar com 8–10 meses de antecedência para ajustes</div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Traje do Noivo</div><div class="fornecedor-cat">Trajes</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Confeiteira — Bolo & Doces</div><div class="fornecedor-cat">Gastronomia</div></div><span class="status-chip chip-buscando">Buscando</span></div><div class="fornecedor-info">💡 Fazer degustação antes de fechar</div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Lembrancinhas</div><div class="fornecedor-cat">Detalhes</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Convites / Papelaria</div><div class="fornecedor-cat">Papelaria</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Decoração extra</div><div class="fornecedor-cat">Decoração</div></div><span class="status-chip chip-buscando">Buscando</span></div><div class="fornecedor-info">💡 Confirmar o que já está incluso no espaço antes</div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Padre / Celebrante</div><div class="fornecedor-cat">Cerimônia</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+      <div class="fornecedor-item"><div class="fornecedor-row"><div><div class="fornecedor-name">Joalheria — Alianças</div><div class="fornecedor-cat">Joias</div></div><span class="status-chip chip-buscando">Buscando</span></div></div>
+    </div>
+    <button class="btn-add" onclick="openModal('modal-forn')">+ Adicionar fornecedor</button>
+  </div>
+</div>
+
+<!-- CONVIDADOS -->
+<div class="page" id="page-guests">
+  <div class="card">
+    <div class="card-title">👥 Convidados</div>
+    <div class="guest-stats">
+      <div class="guest-stat" style="background:var(--rose-light)"><div class="guest-num" id="g-total" style="color:var(--rose-dark)">0</div><div class="guest-lbl">Na lista</div></div>
+      <div class="guest-stat" style="background:var(--green-light)"><div class="guest-num" id="g-conf" style="color:var(--green)">0</div><div class="guest-lbl">Confirmados</div></div>
+      <div class="guest-stat" style="background:var(--gold-light)"><div class="guest-num" id="g-pend" style="color:#a07840">0</div><div class="guest-lbl">Aguardando</div></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Meta: 100 convidados</span><span id="g-pct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="g-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <input type="text" class="search-input" placeholder="🔍 Buscar convidado..." id="guest-search" oninput="filterGuests()">
+    <ul id="guest-list" style="list-style:none;"></ul>
+    <button class="btn-add" onclick="openModal('modal-guest')">+ Adicionar convidado</button>
+  </div>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<div class="modal-overlay" id="modal-forn">
+  <div class="modal">
+    <div class="modal-title">Novo Fornecedor</div>
+    <div class="modal-field"><label>Nome / empresa</label><input type="text" id="forn-nome" placeholder="Ex: Estúdio Luz & Arte"></div>
+    <div class="modal-field"><label>Categoria</label>
+      <select id="forn-cat">
+        <option>Foto & Vídeo</option><option>Beleza</option><option>Trajes</option>
+        <option>Gastronomia</option><option>Decoração</option><option>Música</option>
+        <option>Cerimônia</option><option>Joias</option><option>Papelaria</option><option>Detalhes</option><option>Outro</option>
+      </select>
+    </div>
+    <div class="modal-field"><label>Status</label>
+      <select id="forn-status">
+        <option value="chip-buscando">Buscando</option>
+        <option value="chip-cotando">Cotando</option>
+        <option value="chip-contratado">Contratado</option>
+      </select>
+    </div>
+    <div class="modal-field"><label>Contato / Observação</label><input type="text" id="forn-obs" placeholder="Instagram, telefone, observação..."></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-forn')">Cancelar</button>
+      <button class="btn-primary" onclick="saveForn()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-guest">
+  <div class="modal">
+    <div class="modal-title">Novo Convidado</div>
+    <div class="modal-field"><label>Nome</label><input type="text" id="guest-nome" placeholder="Nome completo"></div>
+    <div class="modal-field"><label>Lado</label>
+      <select id="guest-lado">
+        <option value="Noiva">Família / amigos da noiva</option>
+        <option value="Noivo">Família / amigos do noivo</option>
+        <option value="Casal">Casal / comum</option>
+      </select>
+    </div>
+    <div class="modal-field"><label>Status</label>
+      <select id="guest-status">
+        <option value="aguardando">Aguardando confirmação</option>
+        <option value="sim">Confirmado</option>
+        <option value="nao">Não vai</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-guest')">Cancelar</button>
+      <button class="btn-primary" onclick="saveGuest()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-gasto">
+  <div class="modal">
+    <div class="modal-title">Registrar Gasto</div>
+    <div class="modal-field"><label>Descrição</label><input type="text" id="gasto-desc" placeholder="Ex: Fotógrafo Estúdio X"></div>
+    <div class="modal-field"><label>Valor (R$)</label><input type="number" id="gasto-valor" placeholder="0.00" step="0.01" min="0"></div>
+    <div class="modal-field"><label>Status</label>
+      <select id="gasto-status">
+        <option value="pendente">Orçado (a pagar)</option>
+        <option value="pago">Pago</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-gasto')">Cancelar</button>
+      <button class="btn-primary" onclick="saveGasto()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="showPage('home',this)"><span class="nav-icon">🏠</span>Início</button>
+  <button class="nav-item" onclick="showPage('check',this)"><span class="nav-icon">✅</span>Tarefas</button>
+  <button class="nav-item" onclick="showPage('finance',this)"><span class="nav-icon">💰</span>Finanças</button>
+  <button class="nav-item" onclick="showPage('forn',this)"><span class="nav-icon">🤝</span>Fornec.</button>
+  <button class="nav-item" onclick="showPage('guests',this)"><span class="nav-icon">👥</span>Convid.</button>
+</nav>
+
+<script>
+// ===== CONFIG =====
+const WEDDING = new Date('2027-03-07T11:00:00');
+
+// ===== TASKS DATA =====
+const TASKS = {
+  documentos: [
+    { id:'d1', text:'Dar entrada no processo de habilitação no cartório', meta:'Urgente — o processo leva ~90 dias', urgente:true, done:false },
+    { id:'d2', text:'Definir regime de bens (comunhão parcial, separação...)', meta:'Junto com o processo no cartório', urgente:true, done:false },
+    { id:'d3', text:'Reunir documentos (RG, certidão de nascimento, comprovantes)', meta:'', urgente:false, done:false },
+  ],
+  visual: [
+    { id:'v1', text:'Contratar cabeleireiro da noiva', meta:'Agendar teste com 3–4 meses de antecedência', urgente:true, done:false },
+    { id:'v2', text:'Contratar maquiadora da noiva', meta:'', urgente:true, done:false },
+    { id:'v3', text:'Definir visual das madrinhas (cor e estilo)', meta:'', urgente:false, done:false },
+    { id:'v4', text:'Iniciar cuidados com a pele (skincare/dermatologista)', meta:'Quanto mais cedo, melhor!', urgente:false, done:false },
+    { id:'v5', text:'Definir manicure/pedicure para o dia', meta:'', urgente:false, done:false },
+    { id:'v6', text:'Escolher perfume da noiva para o dia', meta:'', urgente:false, done:false },
+  ],
+  fotos: [
+    { id:'f1', text:'Pesquisar e contratar fotógrafo', meta:'Pedir portfólio — comparar pacotes com e sem álbum', urgente:true, done:false },
+    { id:'f2', text:'Contratar cinegrafista / filme do casamento', meta:'', urgente:true, done:false },
+    { id:'f3', text:'Agendar ensaio de noivos (pré-wedding)', meta:'', urgente:false, done:false },
+    { id:'f4', text:'Criar lista de fotos obrigatórias', meta:'Família, padrinhos, detalhes, momentos especiais', urgente:false, done:false },
+  ],
+  trajes: [
+    { id:'t1', text:'Escolher e encomendar vestido de noiva', meta:'Com 8–10 meses de antecedência para ajustes', urgente:true, done:false },
+    { id:'t2', text:'Provas e ajustes do vestido', meta:'Confirmar cronograma com o ateliê', urgente:false, done:false },
+    { id:'t3', text:'Escolher véu e acessórios da noiva', meta:'', urgente:false, done:false },
+    { id:'t4', text:'Comprar sapatos da noiva (usar antes para amaciar)', meta:'', urgente:false, done:false },
+    { id:'t5', text:'Traje do noivo (terno / smoking)', meta:'Comprar ou alugar', urgente:true, done:false },
+    { id:'t6', text:'Definir traje dos padrinhos', meta:'', urgente:false, done:false },
+    { id:'t7', text:'Lingerie e roupão para a suíte da noiva', meta:'', urgente:false, done:false },
+  ],
+  cerimonia: [
+    { id:'c1', text:'Definir tipo de cerimônia (religiosa, civil ou mista)', meta:'', urgente:true, done:false },
+    { id:'c2', text:'Contratar padre, pastor ou celebrante', meta:'', urgente:true, done:false },
+    { id:'c3', text:'Escolher músicas da cerimônia', meta:'Entrada da noiva, assinatura, saída', urgente:false, done:false },
+    { id:'c4', text:'Escolher padrinhos e madrinhas', meta:'', urgente:false, done:false },
+    { id:'c5', text:'Escrever os votos (se quiserem)', meta:'', urgente:false, done:false },
+    { id:'c6', text:'Definir quem acompanha a noiva ao altar', meta:'', urgente:false, done:false },
+    { id:'c7', text:'Ensaio da cerimônia no espaço', meta:'Agendar com o assessor', urgente:false, done:false },
+  ],
+  decoracao: [
+    { id:'dc1', text:'Definir tema / paleta de cores', meta:'', urgente:false, done:false },
+    { id:'dc2', text:'Contratar decorador / florista', meta:'', urgente:true, done:false },
+    { id:'dc3', text:'Decoração do altar', meta:'', urgente:false, done:false },
+    { id:'dc4', text:'Arranjos de mesa dos convidados', meta:'', urgente:false, done:false },
+    { id:'dc5', text:'Buquê da noiva + buquê de lançamento', meta:'', urgente:false, done:false },
+    { id:'dc6', text:'Confirmar o que já está incluso no espaço', meta:'Perguntar ao Recanto Miami antes de contratar extras', urgente:false, done:false },
+  ],
+  doces: [
+    { id:'do1', text:'Contratar confeiteira — bolo de casamento', meta:'Fazer degustação antes de fechar', urgente:true, done:false },
+    { id:'do2', text:'Definir mesa de doces finos', meta:'Bem-casados, brigadeiros gourmet, macarons, cake pops...', urgente:false, done:false },
+    { id:'do3', text:'Decidir sabores do bolo', meta:'', urgente:false, done:false },
+    { id:'do4', text:'Definir design / decoração do bolo', meta:'', urgente:false, done:false },
+  ],
+  lembrancinhas: [
+    { id:'l1', text:'Definir modelo das lembrancinhas', meta:'Mini vela, sachê, álcool gel personalizado, sementes, mel...', urgente:false, done:false },
+    { id:'l2', text:'Encomendar 100 unidades', meta:'', urgente:false, done:false },
+    { id:'l3', text:'Personalizar embalagens com nome e data', meta:'Klarice & Vinicius · 07/03/2027', urgente:false, done:false },
+  ],
+  convidados: [
+    { id:'cv1', text:'Montar lista completa de convidados', meta:'Meta: 100 pessoas', urgente:true, done:false },
+    { id:'cv2', text:'Enviar save the date', meta:'Com pelo menos 6 meses de antecedência', urgente:true, done:false },
+    { id:'cv3', text:'Definir modelo e design do convite', meta:'Físico e/ou digital', urgente:false, done:false },
+    { id:'cv4', text:'Encomendar convites físicos', meta:'Distribuir com 3 meses de antecedência', urgente:false, done:false },
+    { id:'cv5', text:'Confirmar presenças', meta:'', urgente:false, done:false },
+    { id:'cv6', text:'Criar site de casamento / lista de presentes', meta:'', urgente:false, done:false },
+  ],
+  lua: [
+    { id:'lm1', text:'Definir destino da lua de mel', meta:'', urgente:false, done:false },
+    { id:'lm2', text:'Pesquisar e reservar passagens e hotel', meta:'', urgente:false, done:false },
+    { id:'lm3', text:'Verificar documentos necessários', meta:'Passaporte, visto, seguro viagem', urgente:false, done:false },
+  ],
+};
+
+let guests = [];
+let gastos = [];
+
+// ===== STORAGE =====
+const KEY = 'kv_wedding_2027';
+function saveAll() {
+  const allDone = {};
+  Object.keys(TASKS).forEach(k => { allDone[k] = TASKS[k].map(t => ({ id:t.id, done:t.done })); });
+  localStorage.setItem(KEY + '_tasks', JSON.stringify(allDone));
+  localStorage.setItem(KEY + '_guests', JSON.stringify(guests));
+  localStorage.setItem(KEY + '_gastos', JSON.stringify(gastos));
+}
+function loadAll() {
+  try {
+    const t = JSON.parse(localStorage.getItem(KEY + '_tasks') || '{}');
+    Object.keys(t).forEach(k => {
+      if (!TASKS[k]) return;
+      t[k].forEach(saved => {
+        const item = TASKS[k].find(x => x.id === saved.id);
+        if (item) item.done = saved.done;
+      });
+    });
+    guests = JSON.parse(localStorage.getItem(KEY + '_guests') || '[]');
+    gastos = JSON.parse(localStorage.getItem(KEY + '_gastos') || '[]');
+  } catch(e) {}
+}
+
+// ===== COUNTDOWN =====
+function tick() {
+  const diff = WEDDING - new Date();
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-dias').textContent = String(d).padStart(3,'0');
+  document.getElementById('cd-horas').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-min').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-seg').textContent = String(s).padStart(2,'0');
+}
+
+// ===== NAV =====
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== RENDER TASKS =====
+function renderCat(key, listId) {
+  const ul = document.getElementById(listId);
+  if (!ul) return;
+  ul.innerHTML = '';
+  TASKS[key].forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="check-box ${item.done ? 'done' : ''}">${item.done ? '✓' : ''}</div>
+      <div style="flex:1">
+        <div class="check-text ${item.done ? 'done' : ''}">${item.text}</div>
+        ${item.meta ? `<div class="check-meta">${item.meta}</div>` : ''}
+      </div>
+      ${item.urgente && !item.done ? '<span class="badge badge-urgent">Urgente</span>' : ''}
+    `;
+    li.onclick = () => { item.done = !item.done; saveAll(); renderAll(); };
+    ul.appendChild(li);
+  });
+}
+
+function renderProgress() {
+  const all = Object.values(TASKS).flat();
+  const done = all.filter(i => i.done).length;
+  const pct = Math.round((done / all.length) * 100);
+  document.getElementById('prog-label').textContent = pct + '%';
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-sub').textContent = `${done} de ${all.length} tarefas concluídas`;
+}
+
+function renderUrgent() {
+  const ul = document.getElementById('urgent-list');
+  ul.innerHTML = '';
+  const urgent = Object.values(TASKS).flat().filter(i => i.urgente && !i.done).slice(0, 5);
+  if (!urgent.length) {
+    ul.innerHTML = '<li style="padding:10px 0;color:var(--green);font-size:14px;">🎉 Nenhuma tarefa urgente pendente!</li>';
+    return;
+  }
+  urgent.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="check-box"></div>
+      <div style="flex:1"><div class="check-text">${item.text}</div>${item.meta ? `<div class="check-meta">${item.meta}</div>` : ''}</div>
+      <span class="badge badge-urgent">Urgente</span>
+    `;
+    li.onclick = () => { item.done = true; saveAll(); renderAll(); };
+    ul.appendChild(li);
+  });
+}
+
+function renderAll() {
+  Object.keys(TASKS).forEach(k => renderCat(k, 'list-' + k));
+  renderProgress();
+  renderUrgent();
+  renderGuests();
+  renderGastos();
+}
+
+// ===== GUESTS =====
+function renderGuests(filter) {
+  const ul = document.getElementById('guest-list');
+  const list = filter ? guests.filter(g => g.nome.toLowerCase().includes(filter.toLowerCase())) : guests;
+  ul.innerHTML = '';
+  if (!list.length) {
+    ul.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-soft);font-size:13px;">Nenhum convidado adicionado ainda.</div>';
+  } else {
+    list.forEach(g => {
+      const li = document.createElement('div');
+      li.className = 'guest-item';
+      const realIdx = guests.indexOf(g);
+      li.innerHTML = `
+        <div><div style="font-weight:500;font-size:14px">${g.nome}</div><div class="guest-side">${g.lado}</div></div>
+        <button class="confirm-btn ${g.status}" onclick="cycleGuest(${realIdx},event)">
+          ${g.status==='sim'?'✅ Confirmado':g.status==='nao'?'❌ Não vai':'⏳ Aguardando'}
+        </button>`;
+      ul.appendChild(li);
+    });
+  }
+  const total = guests.length;
+  const conf = guests.filter(g => g.status==='sim').length;
+  const pend = guests.filter(g => g.status==='aguardando').length;
+  document.getElementById('g-total').textContent = total;
+  document.getElementById('g-conf').textContent = conf;
+  document.getElementById('g-pend').textContent = pend;
+  const pct = Math.min(Math.round((total/100)*100), 100);
+  document.getElementById('g-pct').textContent = pct + '%';
+  document.getElementById('g-bar').style.width = pct + '%';
+}
+
+function filterGuests() { renderGuests(document.getElementById('guest-search').value); }
+function cycleGuest(idx, e) {
+  e.stopPropagation();
+  const map = { aguardando:'sim', sim:'nao', nao:'aguardando' };
+  guests[idx].status = map[guests[idx].status];
+  saveAll(); renderGuests();
+}
+
+// ===== GASTOS =====
+function renderGastos() {
+  const el = document.getElementById('extras-list');
+  if (!gastos.length) {
+    el.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-soft);font-size:13px;">Nenhum gasto registrado ainda.</div>';
+    document.getElementById('f-extras-total').textContent = 'R$ 0';
+    return;
+  }
+  el.innerHTML = '';
+  let total = 0;
+  gastos.forEach(g => {
+    total += g.valor;
+    const d = document.createElement('div');
+    d.className = 'payment-item';
+    d.innerHTML = `
+      <div><div class="payment-name">${g.desc}</div><div class="payment-status">${g.status==='pago'?'✅ Pago':'⏳ A pagar'}</div></div>
+      <div class="payment-amount ${g.status}">R$ ${g.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div>`;
+    el.appendChild(d);
+  });
+  document.getElementById('f-extras-total').textContent = 'R$ ' + total.toLocaleString('pt-BR',{minimumFractionDigits:2});
+}
+
+// ===== MODALS =====
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+function saveForn() {
+  const nome = document.getElementById('forn-nome').value.trim();
+  if (!nome) return;
+  const cat = document.getElementById('forn-cat').value;
+  const statusKey = document.getElementById('forn-status').value;
+  const labels = { 'chip-buscando':'Buscando','chip-cotando':'Cotando','chip-contratado':'Contratado' };
+  const obs = document.getElementById('forn-obs').value.trim();
+  const div = document.createElement('div');
+  div.className = 'fornecedor-item';
+  div.innerHTML = `
+    <div class="fornecedor-row"><div><div class="fornecedor-name">${nome}</div><div class="fornecedor-cat">${cat}</div></div><span class="status-chip ${statusKey}">${labels[statusKey]}</span></div>
+    ${obs ? `<div class="fornecedor-info">📌 ${obs}</div>` : ''}`;
+  const list = document.getElementById('forn-list');
+  list.appendChild(div);
+  document.getElementById('forn-nome').value = '';
+  document.getElementById('forn-obs').value = '';
+  closeModal('modal-forn');
+}
+
+function saveGuest() {
+  const nome = document.getElementById('guest-nome').value.trim();
+  if (!nome) return;
+  guests.push({ nome, lado: document.getElementById('guest-lado').value, status: document.getElementById('guest-status').value });
+  document.getElementById('guest-nome').value = '';
+  saveAll(); renderGuests(); closeModal('modal-guest');
+}
+
+function saveGasto() {
+  const desc = document.getElementById('gasto-desc').value.trim();
+  const valor = parseFloat(document.getElementById('gasto-valor').value) || 0;
+  const status = document.getElementById('gasto-status').value;
+  if (!desc) return;
+  gastos.push({ desc, valor, status });
+  document.getElementById('gasto-desc').value = '';
+  document.getElementById('gasto-valor').value = '';
+  saveAll(); renderGastos(); closeModal('modal-gasto');
+}
+
+// ===== INIT =====
+loadAll();
+renderAll();
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
