@@ -6,22 +6,26 @@
 <title>Klarice & Vinicius 💍</title>
 <style>
   :root {
-    --rose: #c9748a;
-    --rose-light: #f5e6ea;
-    --rose-dark: #a05570;
+    --navy: #1a2a4a;
+    --navy-mid: #243660;
+    --navy-light: #e8edf5;
+    --navy-soft: #d0daea;
+    --rose: #d4607a;
+    --rose-light: #fde8ed;
+    --rose-dark: #b04060;
     --gold: #c9a96e;
     --gold-light: #f7f0e6;
-    --cream: #fdf8f5;
-    --text: #3a2e35;
-    --text-soft: #7a6470;
+    --cream: #f5f7fa;
+    --text: #1a2a4a;
+    --text-soft: #5a6a8a;
     --white: #ffffff;
-    --green: #6aaa8e;
-    --green-light: #e8f5ef;
+    --green: #3a9e70;
+    --green-light: #e4f5ee;
     --red: #d9736a;
     --red-light: #fdecea;
-    --purple: #9b7ec8;
-    --purple-light: #f0ebf9;
-    --shadow: 0 2px 12px rgba(60,30,40,0.10);
+    --purple: #7a6ec8;
+    --purple-light: #eeebf9;
+    --shadow: 0 2px 12px rgba(20,40,80,0.10);
     --radius: 16px;
     --radius-sm: 10px;
   }
@@ -36,7 +40,7 @@
 
   /* HEADER */
   .header {
-    background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 60%, var(--gold) 100%);
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--rose-dark) 100%);
     color: white;
     padding: 28px 20px 20px;
     text-align: center;
@@ -56,7 +60,7 @@
 
   /* COUNTDOWN */
   .countdown {
-    background: white;
+    background: var(--navy);
     padding: 18px 20px;
     display: flex;
     justify-content: center;
@@ -66,30 +70,30 @@
   .countdown-item { text-align: center; }
   .countdown-num {
     font-size: 32px; font-weight: 800;
-    color: var(--rose-dark);
+    color: var(--rose-light);
     line-height: 1;
     display: block;
   }
-  .countdown-label { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+  .countdown-label { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
   .countdown-sep { color: var(--rose); font-size: 28px; font-weight: 300; align-self: center; margin-top: -8px; }
 
   /* BOTTOM NAV */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
-    background: white;
-    border-top: 1px solid #f0e8ec;
+    background: var(--navy);
+    border-top: 1px solid var(--navy-mid);
     display: flex;
     z-index: 100;
-    box-shadow: 0 -2px 16px rgba(60,30,40,0.08);
+    box-shadow: 0 -2px 16px rgba(20,40,80,0.15);
   }
   .nav-item {
     flex: 1; padding: 10px 4px 8px;
     display: flex; flex-direction: column; align-items: center; gap: 3px;
     cursor: pointer; border: none; background: none;
-    color: var(--text-soft); font-size: 10px; font-family: inherit;
+    color: rgba(255,255,255,0.5); font-size: 10px; font-family: inherit;
     transition: color 0.15s;
   }
-  .nav-item.active { color: var(--rose-dark); }
+  .nav-item.active { color: var(--rose-light); }
   .nav-icon { font-size: 22px; }
 
   /* PAGES */
@@ -106,7 +110,7 @@
   }
   .card-title {
     font-size: 16px; font-weight: 700;
-    color: var(--rose-dark);
+    color: var(--navy);
     margin-bottom: 14px;
     display: flex; align-items: center; gap: 8px;
   }
@@ -114,26 +118,26 @@
   /* PROGRESS BAR */
   .progress-wrap { margin-bottom: 6px; }
   .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); margin-bottom: 5px; }
-  .progress-bar { background: var(--rose-light); border-radius: 20px; height: 10px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--rose), var(--gold)); border-radius: 20px; transition: width 0.5s ease; }
+  .progress-bar { background: var(--navy-light); border-radius: 20px; height: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--navy-mid), var(--rose)); border-radius: 20px; transition: width 0.5s ease; }
 
   /* CHECKLIST */
   .checklist { list-style: none; }
   .checklist li {
     display: flex; align-items: flex-start; gap: 12px;
     padding: 10px 0;
-    border-bottom: 1px solid #f7f0f3;
+    border-bottom: 1px solid var(--navy-light);
     cursor: pointer;
   }
   .checklist li:last-child { border-bottom: none; }
   .check-box {
     width: 22px; height: 22px; min-width: 22px;
-    border-radius: 6px; border: 2px solid var(--rose);
+    border-radius: 6px; border: 2px solid var(--navy-mid);
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; transition: all 0.15s;
     background: white;
   }
-  .check-box.done { background: var(--rose); border-color: var(--rose); color: white; }
+  .check-box.done { background: var(--navy-mid); border-color: var(--navy-mid); color: white; }
   .check-text { flex: 1; font-size: 14px; line-height: 1.4; }
   .check-text.done { text-decoration: line-through; color: var(--text-soft); }
   .check-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
@@ -152,20 +156,20 @@
     border-radius: var(--radius-sm);
     padding: 14px; text-align: center;
   }
-  .finance-box.total { background: var(--rose-light); }
+  .finance-box.total { background: var(--navy-light); }
   .finance-box.pago { background: var(--green-light); }
   .finance-box.pendente { background: var(--gold-light); }
-  .finance-box.restante { background: var(--purple-light); }
+  .finance-box.restante { background: var(--rose-light); }
   .finance-num { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
-  .finance-num.rose { color: var(--rose-dark); }
+  .finance-num.navy { color: var(--navy); }
   .finance-num.green { color: var(--green); }
   .finance-num.gold { color: #a07840; }
-  .finance-num.purple { color: var(--purple); }
+  .finance-num.rose { color: var(--rose-dark); }
   .finance-label { font-size: 11px; color: var(--text-soft); }
 
   .payment-item {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-bottom: 1px solid #f7f0f3; font-size: 13px;
+    padding: 10px 0; border-bottom: 1px solid var(--navy-light); font-size: 13px;
   }
   .payment-item:last-child { border-bottom: none; }
   .payment-name { font-weight: 500; }
@@ -177,7 +181,7 @@
   /* FORNECEDORES */
   .fornecedor-item {
     padding: 12px 0;
-    border-bottom: 1px solid #f7f0f3;
+    border-bottom: 1px solid var(--navy-light);
   }
   .fornecedor-item:last-child { border-bottom: none; }
   .fornecedor-row { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -191,21 +195,21 @@
   .chip-contratado { background: var(--green-light); color: var(--green); }
   .chip-buscando { background: var(--gold-light); color: #a07840; }
   .chip-cotando { background: var(--purple-light); color: var(--purple); }
-  .chip-incluido { background: var(--rose-light); color: var(--rose-dark); }
+  .chip-incluido { background: var(--navy-light); color: var(--navy-mid); }
 
   /* ADD BUTTON */
   .btn-add {
     width: 100%; padding: 12px;
-    border: 2px dashed var(--rose);
+    border: 2px dashed var(--navy-mid);
     border-radius: var(--radius-sm);
-    background: none; color: var(--rose);
+    background: none; color: var(--navy-mid);
     font-size: 14px; font-weight: 600;
     cursor: pointer; display: flex; align-items: center;
     justify-content: center; gap: 8px; margin-top: 8px;
     font-family: inherit;
     transition: all 0.15s;
   }
-  .btn-add:active { background: var(--rose-light); }
+  .btn-add:active { background: var(--navy-light); }
 
   /* CONVIDADOS */
   .guest-stats {
@@ -219,15 +223,15 @@
 
   .search-input {
     width: 100%; padding: 10px 14px;
-    border: 1.5px solid #f0e8ec; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--navy-light); border-radius: var(--radius-sm);
     font-size: 14px; font-family: inherit;
     outline: none; margin-bottom: 12px;
   }
-  .search-input:focus { border-color: var(--rose); }
+  .search-input:focus { border-color: var(--navy-mid); }
 
   .guest-item {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-bottom: 1px solid #f7f0f3; font-size: 13px;
+    padding: 10px 0; border-bottom: 1px solid var(--navy-light); font-size: 13px;
   }
   .guest-item:last-child { border-bottom: none; }
   .guest-side { font-size: 11px; color: var(--text-soft); }
@@ -242,7 +246,7 @@
   /* MODAL */
   .modal-overlay {
     display: none; position: fixed; inset: 0;
-    background: rgba(60,20,35,0.45); z-index: 200;
+    background: rgba(20,40,80,0.55); z-index: 200;
     align-items: flex-end; justify-content: center;
   }
   .modal-overlay.open { display: flex; }
@@ -250,24 +254,24 @@
     background: white; border-radius: 20px 20px 0 0;
     padding: 24px 20px; width: 100%; max-height: 80vh; overflow-y: auto;
   }
-  .modal-title { font-size: 18px; font-weight: 700; color: var(--rose-dark); margin-bottom: 16px; }
+  .modal-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
   .modal-field { margin-bottom: 14px; }
   .modal-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-soft); margin-bottom: 6px; }
   .modal-field input, .modal-field select {
-    width: 100%; padding: 10px 14px; border: 1.5px solid #f0e8ec;
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--navy-light);
     border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
     outline: none;
   }
-  .modal-field input:focus, .modal-field select:focus { border-color: var(--rose); }
+  .modal-field input:focus, .modal-field select:focus { border-color: var(--navy-mid); }
   .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
   .btn-primary {
     flex: 1; padding: 14px; border: none; border-radius: var(--radius-sm);
-    background: var(--rose); color: white; font-size: 15px; font-weight: 700;
+    background: var(--navy); color: white; font-size: 15px; font-weight: 700;
     cursor: pointer; font-family: inherit;
   }
   .btn-secondary {
-    flex: 1; padding: 14px; border: 1.5px solid var(--rose); border-radius: var(--radius-sm);
-    background: none; color: var(--rose); font-size: 15px; font-weight: 700;
+    flex: 1; padding: 14px; border: 1.5px solid var(--navy); border-radius: var(--radius-sm);
+    background: none; color: var(--navy); font-size: 15px; font-weight: 700;
     cursor: pointer; font-family: inherit;
   }
 
@@ -279,7 +283,7 @@
 
   /* ESPAÇO INCLUSO */
   .space-included {
-    background: var(--rose-light);
+    background: var(--navy-light);
     border-radius: var(--radius-sm);
     padding: 14px;
     margin-bottom: 12px;
@@ -289,6 +293,70 @@
     padding: 5px 0; font-size: 13px;
   }
   .space-icon { font-size: 15px; min-width: 20px; text-align: center; }
+
+  /* PADRINHOS */
+  .padrinho-card {
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--navy-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .padrinho-num {
+    background: var(--navy);
+    color: white;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    min-width: 30px;
+  }
+  .padrinho-names { flex: 1; }
+  .padrinho-names strong { font-size: 14px; color: var(--navy); display: block; }
+  .padrinho-names span { font-size: 12px; color: var(--text-soft); }
+  .padrinho-status {
+    font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    white-space: nowrap; cursor: pointer; border: none; font-family: inherit;
+  }
+  .ps-confirmado { background: var(--green-light); color: var(--green); }
+  .ps-aguardando { background: var(--gold-light); color: #a07840; }
+  .ps-convidado { background: var(--rose-light); color: var(--rose-dark); }
+
+  /* CAIXA CONVITE */
+  .convite-box {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--rose-dark) 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    color: white;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .convite-box h3 { font-size: 18px; margin-bottom: 6px; }
+  .convite-box p { font-size: 13px; opacity: 0.85; margin-bottom: 14px; }
+  .convite-items { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .convite-item {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* CHÁ DE PANELA */
+  .cha-header {
+    background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 100%);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    color: white;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .cha-header h3 { font-size: 17px; margin-bottom: 4px; }
+  .cha-header p { font-size: 12px; opacity: 0.85; }
 </style>
 </head>
 <body>
@@ -333,16 +401,16 @@
       <div class="space-row"><span class="space-icon">✅</span><span>Espaço Miami + Buffet Cristal</span></div>
       <div class="space-row"><span class="space-icon">✅</span><span>DJ · som · iluminação (festa, balada e cerimônia)</span></div>
       <div class="space-row"><span class="space-icon">✅</span><span>Assessoria no dia + equipe completa</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Suíte da noiva 4h (+2 acompanhantes)</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Gerador de energia</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Berçário & Área Kids</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Passarela espelhada</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>5 Staffs</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Cascata de Chocolate 2h</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Proteína Polpette de Frango</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Cabine de Fotos 2h</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>Festival de Drinks 3h (alcoólicos e não alcoólicos)</span></div>
-      <div class="space-row"><span class="space-icon">💖</span><span>+1h de evento (total 6h)</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Suíte da noiva 4h (+2 acompanhantes)</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Gerador de energia</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Berçário & Área Kids</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Passarela espelhada</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>5 Staffs</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Cascata de Chocolate 2h</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Proteína Polpette de Frango</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Cabine de Fotos 2h</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>Festival de Drinks 3h (alcoólicos e não alcoólicos)</span></div>
+      <div class="space-row"><span class="space-icon">💙</span><span>+1h de evento (total 6h)</span></div>
     </div>
   </div>
 
@@ -375,10 +443,10 @@
   <div class="card">
     <div class="card-title">💰 Resumo</div>
     <div class="finance-summary">
-      <div class="finance-box total"><div class="finance-num rose">R$ 31.000</div><div class="finance-label">Total contrato</div></div>
+      <div class="finance-box total"><div class="finance-num navy">R$ 31.000</div><div class="finance-label">Total contrato</div></div>
       <div class="finance-box pago"><div class="finance-num green">R$ 3.100</div><div class="finance-label">Entrada paga ✅</div></div>
       <div class="finance-box pendente"><div class="finance-num gold">R$ 27.900</div><div class="finance-label">Restante espaço</div></div>
-      <div class="finance-box restante"><div class="finance-num purple" id="f-extras-total">R$ 0</div><div class="finance-label">Extras registrados</div></div>
+      <div class="finance-box restante"><div class="finance-num rose" id="f-extras-total">R$ 0</div><div class="finance-label">Extras registrados</div></div>
     </div>
     <div class="progress-wrap">
       <div class="progress-label"><span>Espaço pago</span><span>10%</span></div>
@@ -449,7 +517,7 @@
   <div class="card">
     <div class="card-title">👥 Convidados</div>
     <div class="guest-stats">
-      <div class="guest-stat" style="background:var(--rose-light)"><div class="guest-num" id="g-total" style="color:var(--rose-dark)">0</div><div class="guest-lbl">Na lista</div></div>
+      <div class="guest-stat" style="background:var(--navy-light)"><div class="guest-num" id="g-total" style="color:var(--navy)">0</div><div class="guest-lbl">Na lista</div></div>
       <div class="guest-stat" style="background:var(--green-light)"><div class="guest-num" id="g-conf" style="color:var(--green)">0</div><div class="guest-lbl">Confirmados</div></div>
       <div class="guest-stat" style="background:var(--gold-light)"><div class="guest-num" id="g-pend" style="color:#a07840">0</div><div class="guest-lbl">Aguardando</div></div>
     </div>
@@ -463,6 +531,54 @@
     <ul id="guest-list" style="list-style:none;"></ul>
     <button class="btn-add" onclick="openModal('modal-guest')">+ Adicionar convidado</button>
   </div>
+</div>
+
+<!-- PADRINHOS -->
+<div class="page" id="page-padrinhos">
+
+  <!-- Caixa do Convite dos Padrinhos -->
+  <div class="convite-box">
+    <h3>💌 Caixa Convite dos Padrinhos</h3>
+    <p>Lembre-se de preparar a caixinha surpresa para convidar cada casal com carinho!</p>
+    <div class="convite-items">
+      <span class="convite-item">🥂 Mini champagne</span>
+      <span class="convite-item">💌 Carta personalizada</span>
+      <span class="convite-item">🎀 Lacinho azul marinho</span>
+      <span class="convite-item">📸 Foto do casal</span>
+      <span class="convite-item">🍫 Chocolatinho</span>
+      <span class="convite-item">💍 Tag com função</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">👑 Nossos 12 Casais de Padrinhos</div>
+    <div id="padrinhos-list">
+      <!-- Renderizado via JS -->
+    </div>
+    <button class="btn-add" onclick="openModal('modal-padrinho')">+ Editar / adicionar casal</button>
+  </div>
+
+  <!-- Chá de Panela -->
+  <div class="card">
+    <div class="cha-header">
+      <h3>🍳 Chá de Panela</h3>
+      <p>Organização do evento pré-casamento</p>
+    </div>
+    <div class="card-title" style="margin-bottom:10px;">📋 Checklist do Chá</div>
+    <ul class="checklist" id="list-cha"></ul>
+
+    <div style="margin-top:16px;">
+      <div class="card-title" style="margin-bottom:10px;">📝 Detalhes do Evento</div>
+      <div class="space-included">
+        <div class="space-row"><span class="space-icon">📅</span><span id="cha-data">Data: a definir</span></div>
+        <div class="space-row"><span class="space-icon">📍</span><span id="cha-local">Local: a definir</span></div>
+        <div class="space-row"><span class="space-icon">👥</span><span id="cha-convidadas">Convidadas: a definir</span></div>
+        <div class="space-row"><span class="space-icon">🎨</span><span>Tema: Rosa & Azul Marinho</span></div>
+      </div>
+      <button class="btn-add" onclick="openModal('modal-cha')">✏️ Editar detalhes do chá</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- ===== MODALS ===== -->
@@ -536,6 +652,39 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-padrinho">
+  <div class="modal">
+    <div class="modal-title">Editar Casal de Padrinhos</div>
+    <div class="modal-field"><label>Número do casal (1–12)</label><input type="number" id="pad-num" min="1" max="12" placeholder="Ex: 1"></div>
+    <div class="modal-field"><label>Nome dele</label><input type="text" id="pad-ele" placeholder="Nome do padrinho"></div>
+    <div class="modal-field"><label>Nome dela</label><input type="text" id="pad-ela" placeholder="Nome da madrinha"></div>
+    <div class="modal-field"><label>Status do convite</label>
+      <select id="pad-status">
+        <option value="ps-aguardando">Aguardando convidar</option>
+        <option value="ps-convidado">Convite entregue</option>
+        <option value="ps-confirmado">Confirmado ✅</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-padrinho')">Cancelar</button>
+      <button class="btn-primary" onclick="savePadrinho()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-cha">
+  <div class="modal">
+    <div class="modal-title">Detalhes do Chá de Panela</div>
+    <div class="modal-field"><label>Data</label><input type="text" id="cha-input-data" placeholder="Ex: 15 de janeiro de 2027"></div>
+    <div class="modal-field"><label>Local</label><input type="text" id="cha-input-local" placeholder="Ex: Casa da madrinha Ana"></div>
+    <div class="modal-field"><label>Convidadas</label><input type="text" id="cha-input-conv" placeholder="Ex: Familiares e amigas próximas"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-cha')">Cancelar</button>
+      <button class="btn-primary" onclick="saveChaDetails()">Salvar</button>
+    </div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-item active" onclick="showPage('home',this)"><span class="nav-icon">🏠</span>Início</button>
@@ -543,6 +692,7 @@
   <button class="nav-item" onclick="showPage('finance',this)"><span class="nav-icon">💰</span>Finanças</button>
   <button class="nav-item" onclick="showPage('forn',this)"><span class="nav-icon">🤝</span>Fornec.</button>
   <button class="nav-item" onclick="showPage('guests',this)"><span class="nav-icon">👥</span>Convid.</button>
+  <button class="nav-item" onclick="showPage('padrinhos',this)"><span class="nav-icon">👑</span>Padrinhos</button>
 </nav>
 
 <script>
@@ -622,6 +772,36 @@ const TASKS = {
   ],
 };
 
+// ===== CHÁ DE PANELA TASKS =====
+const CHA_TASKS = [
+  { id:'ch1', text:'Definir data e local do chá de panela', meta:'Geralmente 1–2 meses antes do casamento', urgente:true, done:false },
+  { id:'ch2', text:'Montar lista de convidadas do chá', meta:'Familiares e amigas próximas', urgente:false, done:false },
+  { id:'ch3', text:'Enviar convites do chá de panela', meta:'Com pelo menos 3 semanas de antecedência', urgente:false, done:false },
+  { id:'ch4', text:'Preparar lista de utensílios desejados', meta:'Panelas, formas, eletrodomésticos...', urgente:false, done:false },
+  { id:'ch5', text:'Contratar buffet ou definir cardápio', meta:'Salgadinhos, bolo temático, docinhos...', urgente:false, done:false },
+  { id:'ch6', text:'Decoração temática (rosa e azul marinho)', meta:'', urgente:false, done:false },
+  { id:'ch7', text:'Preparar brincadeiras e dinâmicas', meta:'Quiz do noivo, bingo dos presentes...', urgente:false, done:false },
+  { id:'ch8', text:'Lembrancinhas para convidadas', meta:'', urgente:false, done:false },
+  { id:'ch9', text:'Contratar fotógrafo para o chá', meta:'Ou designar alguém de confiança', urgente:false, done:false },
+  { id:'ch10', text:'Comprar roupão e pijama da noiva para o evento', meta:'Tradicional no chá!', urgente:false, done:false },
+];
+
+// ===== PADRINHOS =====
+let padrinhos = [
+  { num:1, ele:'', ela:'', status:'ps-aguardando' },
+  { num:2, ele:'', ela:'', status:'ps-aguardando' },
+  { num:3, ele:'', ela:'', status:'ps-aguardando' },
+  { num:4, ele:'', ela:'', status:'ps-aguardando' },
+  { num:5, ele:'', ela:'', status:'ps-aguardando' },
+  { num:6, ele:'', ela:'', status:'ps-aguardando' },
+  { num:7, ele:'', ela:'', status:'ps-aguardando' },
+  { num:8, ele:'', ela:'', status:'ps-aguardando' },
+  { num:9, ele:'', ela:'', status:'ps-aguardando' },
+  { num:10, ele:'', ela:'', status:'ps-aguardando' },
+  { num:11, ele:'', ela:'', status:'ps-aguardando' },
+  { num:12, ele:'', ela:'', status:'ps-aguardando' },
+];
+
 let guests = [];
 let gastos = [];
 
@@ -630,14 +810,29 @@ const KEY = 'kv_wedding_2027';
 function saveAll() {
   const allDone = {};
   Object.keys(TASKS).forEach(k => { allDone[k] = TASKS[k].map(t => ({ id:t.id, done:t.done })); });
+  allDone['cha'] = CHA_TASKS.map(t => ({ id:t.id, done:t.done }));
   localStorage.setItem(KEY + '_tasks', JSON.stringify(allDone));
   localStorage.setItem(KEY + '_guests', JSON.stringify(guests));
   localStorage.setItem(KEY + '_gastos', JSON.stringify(gastos));
+  localStorage.setItem(KEY + '_padrinhos', JSON.stringify(padrinhos));
+  const chaData = {
+    data: document.getElementById('cha-data').textContent,
+    local: document.getElementById('cha-local').textContent,
+    conv: document.getElementById('cha-convidadas').textContent,
+  };
+  localStorage.setItem(KEY + '_cha_details', JSON.stringify(chaData));
 }
 function loadAll() {
   try {
     const t = JSON.parse(localStorage.getItem(KEY + '_tasks') || '{}');
     Object.keys(t).forEach(k => {
+      if (k === 'cha') {
+        t[k].forEach(saved => {
+          const item = CHA_TASKS.find(x => x.id === saved.id);
+          if (item) item.done = saved.done;
+        });
+        return;
+      }
       if (!TASKS[k]) return;
       t[k].forEach(saved => {
         const item = TASKS[k].find(x => x.id === saved.id);
@@ -646,6 +841,14 @@ function loadAll() {
     });
     guests = JSON.parse(localStorage.getItem(KEY + '_guests') || '[]');
     gastos = JSON.parse(localStorage.getItem(KEY + '_gastos') || '[]');
+    const savedPad = JSON.parse(localStorage.getItem(KEY + '_padrinhos') || 'null');
+    if (savedPad) padrinhos = savedPad;
+    const chaDetails = JSON.parse(localStorage.getItem(KEY + '_cha_details') || 'null');
+    if (chaDetails) {
+      if (chaDetails.data) document.getElementById('cha-data').textContent = chaDetails.data;
+      if (chaDetails.local) document.getElementById('cha-local').textContent = chaDetails.local;
+      if (chaDetails.conv) document.getElementById('cha-convidadas').textContent = chaDetails.conv;
+    }
   } catch(e) {}
 }
 
@@ -673,11 +876,12 @@ function showPage(name, btn) {
 }
 
 // ===== RENDER TASKS =====
-function renderCat(key, listId) {
+function renderCat(key, listId, source) {
   const ul = document.getElementById(listId);
   if (!ul) return;
+  const data = source || TASKS[key];
   ul.innerHTML = '';
-  TASKS[key].forEach(item => {
+  data.forEach(item => {
     const li = document.createElement('li');
     li.innerHTML = `
       <div class="check-box ${item.done ? 'done' : ''}">${item.done ? '✓' : ''}</div>
@@ -721,12 +925,69 @@ function renderUrgent() {
   });
 }
 
+// ===== RENDER PADRINHOS =====
+function renderPadrinhos() {
+  const container = document.getElementById('padrinhos-list');
+  container.innerHTML = '';
+  const labels = { 'ps-confirmado':'✅ Confirmado', 'ps-aguardando':'⏳ Aguardando', 'ps-convidado':'💌 Convidado' };
+  padrinhos.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'padrinho-card';
+    const nomeEle = p.ele || 'Padrinho ' + p.num;
+    const nomeEla = p.ela || 'Madrinha ' + p.num;
+    div.innerHTML = `
+      <div class="padrinho-num">${p.num}</div>
+      <div class="padrinho-names">
+        <strong>💙 ${nomeEle}</strong>
+        <span>🌸 ${nomeEla}</span>
+      </div>
+      <button class="padrinho-status ${p.status}" onclick="cyclePadrinho(${p.num - 1}, event)">${labels[p.status]}</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function cyclePadrinho(idx, e) {
+  e.stopPropagation();
+  const map = { 'ps-aguardando':'ps-convidado', 'ps-convidado':'ps-confirmado', 'ps-confirmado':'ps-aguardando' };
+  padrinhos[idx].status = map[padrinhos[idx].status];
+  saveAll(); renderPadrinhos();
+}
+
+function savePadrinho() {
+  const num = parseInt(document.getElementById('pad-num').value);
+  if (!num || num < 1 || num > 12) return;
+  const idx = num - 1;
+  padrinhos[idx].ele = document.getElementById('pad-ele').value.trim() || padrinhos[idx].ele;
+  padrinhos[idx].ela = document.getElementById('pad-ela').value.trim() || padrinhos[idx].ela;
+  padrinhos[idx].status = document.getElementById('pad-status').value;
+  document.getElementById('pad-num').value = '';
+  document.getElementById('pad-ele').value = '';
+  document.getElementById('pad-ela').value = '';
+  saveAll(); renderPadrinhos(); closeModal('modal-padrinho');
+}
+
+function saveChaDetails() {
+  const data = document.getElementById('cha-input-data').value.trim();
+  const local = document.getElementById('cha-input-local').value.trim();
+  const conv = document.getElementById('cha-input-conv').value.trim();
+  if (data) document.getElementById('cha-data').textContent = 'Data: ' + data;
+  if (local) document.getElementById('cha-local').textContent = 'Local: ' + local;
+  if (conv) document.getElementById('cha-convidadas').textContent = 'Convidadas: ' + conv;
+  document.getElementById('cha-input-data').value = '';
+  document.getElementById('cha-input-local').value = '';
+  document.getElementById('cha-input-conv').value = '';
+  saveAll(); closeModal('modal-cha');
+}
+
 function renderAll() {
   Object.keys(TASKS).forEach(k => renderCat(k, 'list-' + k));
+  renderCat('cha', 'list-cha', CHA_TASKS);
   renderProgress();
   renderUrgent();
   renderGuests();
   renderGastos();
+  renderPadrinhos();
 }
 
 // ===== GUESTS =====
