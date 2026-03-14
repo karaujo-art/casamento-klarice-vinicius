@@ -346,6 +346,30 @@
     font-weight: 600;
   }
 
+  /* PARCELAS */
+  .parcela-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 0; border-bottom: 1px solid var(--navy-light);
+  }
+  .parcela-item:last-child { border-bottom: none; }
+  .parcela-info { flex: 1; }
+  .parcela-name { font-weight: 600; font-size: 14px; }
+  .parcela-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .parcela-valor { font-weight: 800; font-size: 15px; margin-right: 4px; }
+  .parcela-valor.pago { color: var(--green); }
+  .parcela-valor.pendente { color: var(--gold); }
+  .btn-pagar {
+    padding: 5px 12px; border-radius: 20px; border: none;
+    font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .btn-pagar.pendente { background: var(--gold-light); color: #a07840; }
+  .btn-pagar.pago { background: var(--green-light); color: var(--green); }
+  .btn-del {
+    background: none; border: none; color: var(--red); font-size: 16px;
+    cursor: pointer; padding: 2px 4px; line-height: 1;
+  }
+
   /* CHÁ DE PANELA */
   .cha-header {
     background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 100%);
@@ -440,34 +464,31 @@
 <!-- FINANCEIRO -->
 <div class="page" id="page-finance">
 
+  <!-- Resumo dinâmico -->
   <div class="card">
-    <div class="card-title">💰 Resumo</div>
+    <div class="card-title">💰 Resumo Geral</div>
     <div class="finance-summary">
-      <div class="finance-box total"><div class="finance-num navy">R$ 31.000</div><div class="finance-label">Total contrato</div></div>
-      <div class="finance-box pago"><div class="finance-num green">R$ 3.100</div><div class="finance-label">Entrada paga ✅</div></div>
-      <div class="finance-box pendente"><div class="finance-num gold">R$ 27.900</div><div class="finance-label">Restante espaço</div></div>
+      <div class="finance-box total"><div class="finance-num navy" id="f-total">R$ 0</div><div class="finance-label">Total previsto</div></div>
+      <div class="finance-box pago"><div class="finance-num green" id="f-pago">R$ 0</div><div class="finance-label">Total pago ✅</div></div>
+      <div class="finance-box pendente"><div class="finance-num gold" id="f-pendente">R$ 0</div><div class="finance-label">A pagar</div></div>
       <div class="finance-box restante"><div class="finance-num rose" id="f-extras-total">R$ 0</div><div class="finance-label">Extras registrados</div></div>
     </div>
-    <div class="progress-wrap">
-      <div class="progress-label"><span>Espaço pago</span><span>10%</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+    <div class="progress-wrap" style="margin-top:8px;">
+      <div class="progress-label"><span>Total pago</span><span id="f-pct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="f-bar" style="width:0%"></div></div>
     </div>
   </div>
 
+  <!-- Parcelas do Espaço -->
   <div class="card">
-    <div class="card-title">📋 Parcelas do Espaço</div>
-    <div class="payment-item">
-      <div><div class="payment-name">Entrada</div><div class="payment-status">✅ Pago — março/2026</div></div>
-      <div class="payment-amount pago">R$ 3.100</div>
-    </div>
-    <div class="payment-item">
-      <div><div class="payment-name">Parcelas contratuais</div><div class="payment-status">⏳ Conforme contrato</div></div>
-      <div class="payment-amount pendente">R$ 27.900</div>
-    </div>
+    <div class="card-title">📋 Parcelas do Espaço — R$ 31.000</div>
+    <div id="parcelas-list"></div>
+    <button class="btn-add" onclick="openModal('modal-parcela')">+ Adicionar parcela</button>
   </div>
 
+  <!-- Gastos extras -->
   <div class="card">
-    <div class="card-title">🎯 Gastos extras</div>
+    <div class="card-title">🎯 Outros gastos / orçamentos</div>
     <div id="extras-list">
       <div style="text-align:center;padding:16px;color:var(--text-soft);font-size:13px;">Nenhum gasto registrado ainda.</div>
     </div>
@@ -630,6 +651,25 @@
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-guest')">Cancelar</button>
       <button class="btn-primary" onclick="saveGuest()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-parcela">
+  <div class="modal">
+    <div class="modal-title">Nova Parcela</div>
+    <div class="modal-field"><label>Descrição</label><input type="text" id="parcela-desc" placeholder="Ex: Entrada, Parcela 1, Parcela 2..."></div>
+    <div class="modal-field"><label>Valor (R$)</label><input type="number" id="parcela-valor" placeholder="0.00" step="0.01" min="0"></div>
+    <div class="modal-field"><label>Vencimento</label><input type="text" id="parcela-venc" placeholder="Ex: março/2026"></div>
+    <div class="modal-field"><label>Status</label>
+      <select id="parcela-status">
+        <option value="pendente">⏳ A pagar</option>
+        <option value="pago">✅ Pago</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-parcela')">Cancelar</button>
+      <button class="btn-primary" onclick="saveParcela()">Salvar</button>
     </div>
   </div>
 </div>
@@ -804,6 +844,9 @@ let padrinhos = [
 
 let guests = [];
 let gastos = [];
+let parcelas = [
+  { desc: 'Entrada', valor: 3100, venc: 'março/2026', status: 'pago' },
+];
 
 // ===== STORAGE =====
 const KEY = 'kv_wedding_2027';
@@ -814,6 +857,7 @@ function saveAll() {
   localStorage.setItem(KEY + '_tasks', JSON.stringify(allDone));
   localStorage.setItem(KEY + '_guests', JSON.stringify(guests));
   localStorage.setItem(KEY + '_gastos', JSON.stringify(gastos));
+  localStorage.setItem(KEY + '_parcelas', JSON.stringify(parcelas));
   localStorage.setItem(KEY + '_padrinhos', JSON.stringify(padrinhos));
   const chaData = {
     data: document.getElementById('cha-data').textContent,
@@ -841,6 +885,8 @@ function loadAll() {
     });
     guests = JSON.parse(localStorage.getItem(KEY + '_guests') || '[]');
     gastos = JSON.parse(localStorage.getItem(KEY + '_gastos') || '[]');
+    const savedParcelas = JSON.parse(localStorage.getItem(KEY + '_parcelas') || 'null');
+    if (savedParcelas) parcelas = savedParcelas;
     const savedPad = JSON.parse(localStorage.getItem(KEY + '_padrinhos') || 'null');
     if (savedPad) padrinhos = savedPad;
     const chaDetails = JSON.parse(localStorage.getItem(KEY + '_cha_details') || 'null');
@@ -987,6 +1033,7 @@ function renderAll() {
   renderUrgent();
   renderGuests();
   renderGastos();
+  renderParcelas();
   renderPadrinhos();
 }
 
@@ -1029,6 +1076,71 @@ function cycleGuest(idx, e) {
   saveAll(); renderGuests();
 }
 
+// ===== PARCELAS =====
+function renderParcelas() {
+  const el = document.getElementById('parcelas-list');
+  if (!el) return;
+  el.innerHTML = '';
+  if (!parcelas.length) {
+    el.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-soft);font-size:13px;">Nenhuma parcela registrada.</div>';
+  } else {
+    parcelas.forEach((p, i) => {
+      const div = document.createElement('div');
+      div.className = 'parcela-item';
+      div.innerHTML = `
+        <div class="parcela-info">
+          <div class="parcela-name">${p.desc}</div>
+          <div class="parcela-meta">${p.venc ? '📅 ' + p.venc : ''}</div>
+        </div>
+        <span class="parcela-valor ${p.status}">R$ ${p.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+        <button class="btn-pagar ${p.status}" onclick="toggleParcela(${i})">${p.status==='pago'?'✅ Pago':'⏳ A pagar'}</button>
+        <button class="btn-del" onclick="deleteParcela(${i})" title="Remover">✕</button>
+      `;
+      el.appendChild(div);
+    });
+  }
+  renderFinanceResumo();
+}
+
+function toggleParcela(i) {
+  parcelas[i].status = parcelas[i].status === 'pago' ? 'pendente' : 'pago';
+  saveAll(); renderParcelas();
+}
+
+function deleteParcela(i) {
+  parcelas.splice(i, 1);
+  saveAll(); renderParcelas();
+}
+
+function saveParcela() {
+  const desc = document.getElementById('parcela-desc').value.trim();
+  const valor = parseFloat(document.getElementById('parcela-valor').value) || 0;
+  const venc = document.getElementById('parcela-venc').value.trim();
+  const status = document.getElementById('parcela-status').value;
+  if (!desc) return;
+  parcelas.push({ desc, valor, venc, status });
+  document.getElementById('parcela-desc').value = '';
+  document.getElementById('parcela-valor').value = '';
+  document.getElementById('parcela-venc').value = '';
+  saveAll(); renderParcelas(); closeModal('modal-parcela');
+}
+
+function renderFinanceResumo() {
+  const totalParcelas = parcelas.reduce((s, p) => s + p.valor, 0);
+  const pagoParcelas = parcelas.filter(p => p.status === 'pago').reduce((s, p) => s + p.valor, 0);
+  const extrasTotal = gastos.reduce((s, g) => s + g.valor, 0);
+  const totalGeral = totalParcelas + extrasTotal;
+  const pendente = totalParcelas - pagoParcelas;
+  const pct = totalGeral > 0 ? Math.round((pagoParcelas / totalGeral) * 100) : 0;
+
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2});
+  document.getElementById('f-total').textContent = fmt(totalGeral);
+  document.getElementById('f-pago').textContent = fmt(pagoParcelas);
+  document.getElementById('f-pendente').textContent = fmt(pendente);
+  document.getElementById('f-pct').textContent = pct + '%';
+  document.getElementById('f-bar').style.width = pct + '%';
+}
+
 // ===== GASTOS =====
 function renderGastos() {
   const el = document.getElementById('extras-list');
@@ -1049,6 +1161,7 @@ function renderGastos() {
     el.appendChild(d);
   });
   document.getElementById('f-extras-total').textContent = 'R$ ' + total.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  renderFinanceResumo();
 }
 
 // ===== MODALS =====
