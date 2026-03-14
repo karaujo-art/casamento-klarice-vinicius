@@ -843,9 +843,26 @@ let padrinhos = [
 ];
 
 let guests = [];
-let gastos = [];
+let gastos = [
+  { desc: 'Fotógrafo e Filmaker', valor: 5000, status: 'pendente' },
+  { desc: 'Lembrancinhas', valor: 3000, status: 'pendente' },
+  { desc: 'Vestido / Noiva', valor: 7000, status: 'pendente' },
+  { desc: 'Terno / Noivo', valor: 2000, status: 'pendente' },
+  { desc: 'Maquiagem / Cabelo da Noiva', valor: 1500, status: 'pendente' },
+];
 let parcelas = [
   { desc: 'Entrada', valor: 3100, venc: 'março/2026', status: 'pago' },
+  { desc: 'Parcela 1', valor: 2536.36, venc: 'abril/2026', status: 'pendente' },
+  { desc: 'Parcela 2', valor: 2536.36, venc: 'maio/2026', status: 'pendente' },
+  { desc: 'Parcela 3', valor: 2536.36, venc: 'junho/2026', status: 'pendente' },
+  { desc: 'Parcela 4', valor: 2536.36, venc: 'julho/2026', status: 'pendente' },
+  { desc: 'Parcela 5', valor: 2536.36, venc: 'agosto/2026', status: 'pendente' },
+  { desc: 'Parcela 6', valor: 2536.36, venc: 'setembro/2026', status: 'pendente' },
+  { desc: 'Parcela 7', valor: 2536.36, venc: 'outubro/2026', status: 'pendente' },
+  { desc: 'Parcela 8', valor: 2536.36, venc: 'novembro/2026', status: 'pendente' },
+  { desc: 'Parcela 9', valor: 2536.36, venc: 'dezembro/2026', status: 'pendente' },
+  { desc: 'Parcela 10', valor: 2536.36, venc: 'janeiro/2027', status: 'pendente' },
+  { desc: 'Parcela 11', valor: 2536.36, venc: 'fevereiro/2027', status: 'pendente' },
 ];
 
 // ===== STORAGE =====
@@ -884,9 +901,10 @@ function loadAll() {
       });
     });
     guests = JSON.parse(localStorage.getItem(KEY + '_guests') || '[]');
-    gastos = JSON.parse(localStorage.getItem(KEY + '_gastos') || '[]');
+    const savedGastos = JSON.parse(localStorage.getItem(KEY + '_gastos') || 'null');
+    if (savedGastos && savedGastos.length) gastos = savedGastos;
     const savedParcelas = JSON.parse(localStorage.getItem(KEY + '_parcelas') || 'null');
-    if (savedParcelas) parcelas = savedParcelas;
+    if (savedParcelas && savedParcelas.length) parcelas = savedParcelas;
     const savedPad = JSON.parse(localStorage.getItem(KEY + '_padrinhos') || 'null');
     if (savedPad) padrinhos = savedPad;
     const chaDetails = JSON.parse(localStorage.getItem(KEY + '_cha_details') || 'null');
